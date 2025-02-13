@@ -15,6 +15,8 @@ class MealDetailsScreen extends StatelessWidget {
       body:
        SingleChildScrollView(
          child: Column( // cần wrap column này trong singleChildScrollView để tránh trường hợp bị overflow hoặc sử dụng ListView thay vì Column
+          // mainAxisAlignment: MainAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.network(
           meal.imageUrl,
