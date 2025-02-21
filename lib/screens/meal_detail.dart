@@ -8,13 +8,15 @@ class MealDetailsScreen extends ConsumerWidget {
   final Meal meal;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) { // WidgetRef ref dùng để nghe thay đổi từ provider
+  Widget build(BuildContext context, WidgetRef ref) { // WidgetRef ref dùng để nghe thay đổi từ provider và chỉ dành cho ConsumerWidget
+    final favouriteMeals = ref.watch(FavouriteMealsProvider);
+    final isFavourite = favouriteMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
         actions: [
           IconButton(
-            icon: const Icon(Icons.star),
+            icon:  Icon(isFavourite ? Icons.star : Icons.star_border),
             onPressed: () {final wasAdded = ref.read(FavouriteMealsProvider.notifier).toggleFavourite(meal);
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
