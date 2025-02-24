@@ -16,7 +16,9 @@ class MealDetailsScreen extends ConsumerWidget {
         title: Text(meal.title),
         actions: [
           IconButton(
-            icon:  Icon(isFavourite ? Icons.star : Icons.star_border),
+            icon: AnimatedSwitcher(duration: const Duration(seconds: 2),transitionBuilder: (child,animation){
+              return RotationTransition(turns: Tween<double>(begin: 0.8, end: 1).animate(animation),child: child,);
+            } ,child: Icon(isFavourite ? Icons.star : Icons.star_border, key: ValueKey<bool>(isFavourite),),) ,
             onPressed: () {final wasAdded = ref.read(FavouriteMealsProvider.notifier).toggleFavourite(meal);
             ScaffoldMessenger.of(context).clearSnackBars();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -32,12 +34,15 @@ class MealDetailsScreen extends ConsumerWidget {
           // mainAxisAlignment: MainAxisAlignment.start,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-          meal.imageUrl,
-          height: 300,
-          width: double.infinity,
-          fit: BoxFit.cover,
-          ),
+            Hero(
+              tag: meal.id,
+              child: Image.network(
+                        meal.imageUrl,
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        ),
+            ),
           const SizedBox(height: 14,),
            Text('Ingredients', style: Theme.of(context).textTheme.titleLarge!.copyWith(
             color: Theme.of(context).colorScheme.primary,

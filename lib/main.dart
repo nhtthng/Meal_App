@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meal_app/data/dummy_data.dart';
@@ -16,6 +17,7 @@ final theme = ThemeData(
 );
 
 void main() {
+  debugPaintSizeEnabled = false;
   runApp( const ProviderScope(child: App()));
 }
 
@@ -25,6 +27,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme,
       home: const TabsScreen(),
     );
